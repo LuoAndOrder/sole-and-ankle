@@ -108,7 +108,7 @@ const Badge = styled.div`
   top: 12px;
   right: -4px;
   text-transform: capitalize;
-  font-family: 'Railway', sans-serif;
+  font-family: 'Raleway', sans-serif;
   font-size: ${14 / 16}rem;
   font-weight: ${WEIGHTS.bold};
   line-height: ${16 / 16}rem;
