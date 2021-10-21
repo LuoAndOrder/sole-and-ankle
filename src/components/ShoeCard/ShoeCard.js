@@ -40,11 +40,20 @@ const ShoeCard = ({
         <Spacer size={12} />
         <Row>
           <Name>{name}</Name>
-          <Price>{formatPrice(price)}</Price>
+          <Price variant={variant}>{formatPrice(price)}</Price>
         </Row>
         <Row>
           <ColorInfo>{pluralize('Color', numOfColors)}</ColorInfo>
+          {variant === 'on-sale' && (
+            <SalePrice>{formatPrice(salePrice)}</SalePrice>
+          )}
         </Row>
+        {variant === 'new-release' && (
+          <NewReleaseBadge>Just released!</NewReleaseBadge>
+        )}
+        {variant === 'on-sale' && (
+          <SaleBadge>Sale</SaleBadge>
+        )}
       </Wrapper>
     </Link>
   );
@@ -56,6 +65,7 @@ const Link = styled.a`
 `;
 
 const Wrapper = styled.article`
+  position: relative;
   max-width: 340px;
 `;
 
@@ -79,7 +89,10 @@ const Name = styled.h3`
   color: ${COLORS.gray[900]};
 `;
 
-const Price = styled.span``;
+const Price = styled.span`
+  text-decoration: ${p => p.variant === 'on-sale' && 'line-through'};
+  color: ${p => p.variant === 'on-sale' && COLORS.gray[700]};
+`;
 
 const ColorInfo = styled.p`
   color: ${COLORS.gray[700]};
@@ -88,6 +101,28 @@ const ColorInfo = styled.p`
 const SalePrice = styled.span`
   font-weight: ${WEIGHTS.medium};
   color: ${COLORS.primary};
+`;
+
+const Badge = styled.div`
+  position: absolute;
+  top: 12px;
+  right: -4px;
+  text-transform: capitalize;
+  font-family: 'Railway', sans-serif;
+  font-size: ${14 / 16}rem;
+  font-weight: ${WEIGHTS.bold};
+  line-height: ${16 / 16}rem;
+  padding: 7px 9px 9px 11px;
+  border-radius: 2px;
+  color: ${COLORS.white};
+`;
+
+const NewReleaseBadge = styled(Badge)`
+  background-color: ${COLORS.secondary};
+`;
+
+const SaleBadge = styled(Badge)`
+  background-color: ${COLORS.primary};
 `;
 
 export default ShoeCard;
